@@ -3,6 +3,7 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -39,6 +40,15 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     pageIndex: 0,
     pageSize: 5,
   });
+  const [globalFilter, setGlobalFilter] = useState<string>('');
+
+  const usernameOrNameFilter: FilterFn<TData> = (row, _columnId, filterValue) => {
+    const u = String(row.getValue('username')).toLowerCase();
+    const n = String(row.getValue('name')).toLowerCase();
+    return (
+      u.includes(String(filterValue).toLowerCase()) || n.includes(String(filterValue).toLowerCase())
+    );
+  };
 
   const table = useReactTable({
     data,
@@ -50,11 +60,14 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onPaginationChange: setPagination,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: usernameOrNameFilter,
     _features: [HoveringFeature],
     state: {
       sorting,
       columnFilters,
       pagination,
+      globalFilter,
     },
   });
 
@@ -62,10 +75,9 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-          className="max-w-sm"
+          placeholder="Buscar por usuário ou nome"
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
         />
       </div>
       <div className="rounded-md border ">
@@ -103,7 +115,7 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  Sem usuários cadastrados.
+                  Nenhum usuário encontrado.
                 </TableCell>
               </TableRow>
             )}
