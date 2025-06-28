@@ -7,7 +7,8 @@ export default async function UsersPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-5xl flex items-center justify-between mx-auto">
+      <div className="max-w-5xl flex flex-col mx-auto">
+        <h1 className="font-medium text-zinc-800 text-2xl">Usuários</h1>
         <UsersTable columns={usersTableColumns} data={data} />
       </div>
     </div>
