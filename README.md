@@ -1,12 +1,12 @@
----
 ## 🏁 Visão Geral
+
 Este projeto é uma aplicação Next.js (App Router + Server Actions) que consome uma API externa (usuários, posts e álbuns) e gera dados adicionais via rotas internas. Permite:
-  - Listar usuários com busca e paginação.
-  - Cadastrar e deletar usuários (Server Actions).
-  - Exibir detalhes de cada usuário (incluindo posts, álbuns, cidade e dias da semana “disponíveis”).
-  - Navegação via breadcrumbs e fallback para usuário não-encontrado.
-  - Menu dropdown com usuário “logado” fake.
----
+
+- Listar usuários com busca e paginação.
+- Cadastrar e deletar usuários (Server Actions).
+- Exibir detalhes de cada usuário (incluindo posts, álbuns, cidade e dias da semana “disponíveis”).
+- Navegação via breadcrumbs e fallback para usuário não-encontrado.
+- Menu dropdown com usuário “logado” fake.
 
 ## 🛠 Tecnologias
 
