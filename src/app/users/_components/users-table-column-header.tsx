@@ -43,12 +43,21 @@ export function UsersTableColumnHeader<TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+        <DropdownMenuContent
+          align="start"
+          className="w-(--radix-dropdown-menu-trigger-width) min-w-40 rounded-none bg-neutral-700 border-neutral-700 text-zinc-200"
+        >
+          <DropdownMenuItem
+            onClick={() => column.toggleSorting(false)}
+            className="focus:bg-neutral-700 focus:text-zinc-200 rounded-none border-l-4 border-neutral-700 focus:border-primary-purple"
+          >
             <ArrowUp />
             Cresc
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+          <DropdownMenuItem
+            onClick={() => column.toggleSorting(true)}
+            className="focus:bg-neutral-700 focus:text-zinc-200 rounded-none border-l-4 border-neutral-700 focus:border-primary-purple"
+          >
             <ArrowDown />
             Decres
           </DropdownMenuItem>

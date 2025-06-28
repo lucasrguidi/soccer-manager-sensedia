@@ -26,6 +26,13 @@ import {
 } from '@/components/ui/table';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,6 +77,26 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
       globalFilter,
     },
   });
+
+  const { pageIndex } = table.getState().pagination;
+  const pageCount = table.getPageCount();
+
+  function getPageItems() {
+    const siblings = 1;
+    const items: (number | '...')[] = [];
+    for (let i = 0; i < pageCount; i++) {
+      if (
+        i === 0 ||
+        i === pageCount - 1 ||
+        (i >= pageIndex - siblings && i <= pageIndex + siblings)
+      ) {
+        items.push(i);
+      } else if (items[items.length - 1] !== '...') {
+        items.push('...');
+      }
+    }
+    return items;
+  }
 
   return (
     <div className="w-full">
@@ -123,23 +150,73 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      <div className="flex items-center justify-between border-t pt-4">
+        <div>
+          <span className="uppercase text-sm font-medium text-neutral-500">
+            Total {table.getRowCount()}
+          </span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            className="rounded-full"
+          >
+            Anterior
+          </Button>
+
+          {getPageItems().map((item, idx) =>
+            item === '...' ? (
+              <span key={idx} className="px-2 select-none">
+                …
+              </span>
+            ) : (
+              <Button
+                key={item}
+                size="sm"
+                variant={item === pageIndex ? 'ghost' : 'outline'}
+                onClick={() => table.setPageIndex(item)}
+                className="rounded-full"
+              >
+                {item + 1}
+              </Button>
+            ),
+          )}
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            className="rounded-full"
+          >
+            Próximo
+          </Button>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="uppercase text-sm font-medium text-neutral-500">Ir para a página</span>
+          <Select
+            value={String(pageIndex)}
+            onValueChange={(value) => table.setPageIndex(Number(value))}
+          >
+            <SelectTrigger className="bg-white ">
+              <SelectValue placeholder={String(pageIndex + 1)} />
+            </SelectTrigger>
+            <SelectContent className="min-w-40 rounded-none bg-neutral-700 border-neutral-700 text-zinc-200">
+              {table.getPageOptions().map((p) => (
+                <SelectItem
+                  key={p}
+                  value={String(p)}
+                  className="focus:bg-neutral-700 focus:text-zinc-200 rounded-none border-l-4 border-neutral-700 focus:border-primary-purple"
+                >
+                  {p + 1}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );
