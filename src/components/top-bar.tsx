@@ -8,7 +8,7 @@ export default function TopBar() {
     <div className="px-6 py-4 bg-background flex justify-between ">
       <div className="flex items-center gap-2">
         <LogoSensedia type="icon" />
-        <span className="capitalize text-primary-purple font-bold text-sm">BEM-VINDO</span>
+        <span className="uppercase text-primary-purple font-bold text-sm">BEM-VINDO</span>
         breadcrumbs
       </div>
       <div className="flex items-center gap-4">

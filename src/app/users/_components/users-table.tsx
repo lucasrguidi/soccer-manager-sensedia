@@ -26,8 +26,6 @@ import {
 } from '@/components/ui/table';
 import { useState } from 'react';
 
-import { HoveringFeature } from 'tanstack-table-hovering';
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -62,7 +60,6 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     onPaginationChange: setPagination,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: usernameOrNameFilter,
-    _features: [HoveringFeature],
     state: {
       sorting,
       columnFilters,
