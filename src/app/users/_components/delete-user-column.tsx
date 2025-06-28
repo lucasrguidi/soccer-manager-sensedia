@@ -26,13 +26,15 @@ export default function DeleteUserColumn({ row }: DeleteUserColumnProps) {
     </Button>
   );
 
-  const handleConfirm = () =>
-    new Promise<void>((resolve) => {
-      startTransition(async () => {
+  async function handleConfirm() {
+    startTransition(async () => {
+      try {
         await deleteUserAction(row.original.id);
-        resolve();
-      });
+      } catch (err: unknown) {
+        console.error('Erro ao excluir usuário:', err);
+      }
     });
+  }
 
   return (
     <ConfirmDeleteDialog

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import LoadingSpinner from './loading-spinner';
 
 interface ConfirmDeleteDialogProps {
   trigger: React.ReactNode;
@@ -43,10 +44,16 @@ export default function ConfirmDeleteDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
+          <Button
+            variant="ghost"
+            className="w-fit uppercase text-secondary-purple hover:text-secondary-purple/90"
+            onClick={() => setOpen(false)}
+            disabled={loading}
+          >
             Cancelar
           </Button>
-          <Button onClick={handleConfirm} disabled={loading}>
+          <Button onClick={handleConfirm} disabled={loading} className="uppercase">
+            {loading && <LoadingSpinner />}
             {loading ? 'Deletando...' : 'Excluir'}
           </Button>
         </DialogFooter>

@@ -72,7 +72,7 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Buscar por usuário ou nome"
+          label="Buscar por usuário ou nome"
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
         />

@@ -1,21 +1,36 @@
-import * as React from "react"
+import * as React from 'react';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+function Input({
+  className,
+  type,
+  label,
+  ...props
+}: React.ComponentProps<'input'> & { label: string }) {
   return (
-    <input
-      type={type}
-      data-slot="input"
-      className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        className
-      )}
-      {...props}
-    />
-  )
+    <div className="relative w-full ">
+      <div className="group relative z-0 w-full">
+        <input
+          type={type}
+          id="floating-input"
+          className={cn(
+            'peer block w-full !pl-2 appearance-none rounded-t-sm border-0 border-b-2 border-neutral-400 bg-gray-800/5 py-2.5 px-0 text-sm text-gray-900 focus:border-secondary-purple focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-secondary-purple aria-invalid:ring-destructive/20 aria-invalid:border-destructive',
+            className,
+          )}
+          placeholder=" "
+          {...props}
+        />
+        <label
+          htmlFor="floating-input"
+          className="absolute top-3 pl-2 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-neutral-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-secondary-purple dark:text-gray-400 peer-focus:dark:text-secondary-purple aria-invalid:text-destructive"
+          aria-invalid={props['aria-invalid'] ? 'true' : 'false'}
+        >
+          {label}
+        </label>
+      </div>
+    </div>
+  );
 }
 
-export { Input }
+export { Input };
