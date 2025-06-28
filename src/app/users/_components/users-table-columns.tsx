@@ -5,6 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { UserListData } from '@/types/user-list-data';
 import DeleteUserColumn from './delete-user-column';
 import { UsersTableColumnHeader } from './users-table-column-header';
+import UsersTableDefaultCell from './users-table-default-cell';
 
 export const usersTableColumns: ColumnDef<UserListData>[] = [
   {
@@ -15,13 +16,16 @@ export const usersTableColumns: ColumnDef<UserListData>[] = [
   {
     accessorKey: 'username',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="User" />,
+    cell: ({ row }) => (
+      <span className="text-neutral-700 font-medium text-sm">{row.original.username}</span>
+    ),
   },
   {
     accessorKey: 'name',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="Nome" />,
     cell: ({ row }) => {
       const name: string = row.getValue('name');
-      return name.split('-')[0];
+      return <UsersTableDefaultCell>{name.split('-')[0]}</UsersTableDefaultCell>;
     },
   },
   {
@@ -31,54 +35,29 @@ export const usersTableColumns: ColumnDef<UserListData>[] = [
       const email: string = row.getValue('email');
       const [local, domain] = email.split('@');
       const prefix = local.split('-')[0];
+      const displayEmail = `${prefix}@${domain}`;
 
-      return `${prefix}@${domain}`;
+      return <UsersTableDefaultCell>{displayEmail}</UsersTableDefaultCell>;
     },
   },
   {
     accessorKey: 'city',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="Cidade" />,
+    cell: ({ row }) => <UsersTableDefaultCell>{row.original.city}</UsersTableDefaultCell>,
   },
   {
     accessorKey: 'weekDays',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="Dias da semana" />,
+    cell: ({ row }) => <UsersTableDefaultCell>{row.original.weekDays}</UsersTableDefaultCell>,
   },
   {
     accessorKey: 'posts',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="Posts" />,
+    cell: ({ row }) => <UsersTableDefaultCell>{row.original.posts}</UsersTableDefaultCell>,
   },
   {
     accessorKey: 'albums',
     header: ({ column }) => <UsersTableColumnHeader column={column} title="Álbuns" />,
+    cell: ({ row }) => <UsersTableDefaultCell>{row.original.albums}</UsersTableDefaultCell>,
   },
-  // {
-  //   id: 'actions',
-  //   cell: ({ row }) => {
-  //     const payment = row.original;
-
-  //     if (!row.getIsHovered()) {
-  //       return null;
-  //     }
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
 ];

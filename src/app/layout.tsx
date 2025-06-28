@@ -1,9 +1,9 @@
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import TopBar from '@/components/top-bar';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/header';
-import TopBar from '@/components/top-bar';
-import UserSummary from '@/components/user-summary';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -26,8 +26,8 @@ export default function RootLayout({
       <body className={`${roboto.variable}  antialiased`}>
         <Header />
         <TopBar />
-        <UserSummary />
         {children}
+        <Footer />
       </body>
     </html>
   );

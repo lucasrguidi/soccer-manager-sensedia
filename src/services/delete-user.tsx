@@ -3,8 +3,6 @@ export async function deleteUser(userId: string): Promise<{ response: string }> 
     method: 'DELETE',
   });
 
-  console.log('Response', response);
-
   if (!response.ok) {
     throw new Error('Erro ao deletar usuário');
   }

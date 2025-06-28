@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { SearchInput } from '@/components/ui/search-input';
 import {
   Table,
   TableBody,
@@ -25,6 +25,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -39,6 +40,8 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
     pageSize: 5,
   });
   const [globalFilter, setGlobalFilter] = useState<string>('');
+
+  const router = useRouter();
 
   const usernameOrNameFilter: FilterFn<TData> = (row, _columnId, filterValue) => {
     const u = String(row.getValue('username')).toLowerCase();
@@ -71,13 +74,13 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Input
-          label="Buscar por usuário ou nome"
+        <SearchInput
+          label="Procurar"
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
         />
       </div>
-      <div className="rounded-md border ">
+      <div>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -101,6 +104,7 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
                   key={row.id}
                   className="group"
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => router.push(`/users/${(row.original as { id: string }).id}`)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

@@ -1,7 +1,8 @@
 import { CircleQuestionMark, Grip } from 'lucide-react';
+import Breadcrumb from './breadcrumb';
 import LogoSensedia from './logo-sensedia';
-import { Separator } from './ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Separator } from './ui/separator';
 
 export default function TopBar() {
   return (
@@ -9,7 +10,7 @@ export default function TopBar() {
       <div className="flex items-center gap-2">
         <LogoSensedia type="icon" />
         <span className="uppercase text-primary-purple font-bold text-sm">BEM-VINDO</span>
-        breadcrumbs
+        <Breadcrumb />
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">

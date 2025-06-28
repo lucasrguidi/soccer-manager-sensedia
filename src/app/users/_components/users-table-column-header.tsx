@@ -28,7 +28,11 @@ export function UsersTableColumnHeader<TData, TValue>({
     <div className={cn('flex items-center gap-2', className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="data-[state=open]:bg-accent -ml-3 h-8">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="data-[state=open]:bg-accent -ml-3 h-8 uppercase text-xs font-bold"
+          >
             <span>{title}</span>
             {column.getIsSorted() === 'desc' ? (
               <ArrowDown />

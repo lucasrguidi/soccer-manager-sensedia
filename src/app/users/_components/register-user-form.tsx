@@ -50,7 +50,7 @@ export default function RegisterUserForm() {
         await createUserAction(values);
         form.reset();
       } catch (err: unknown) {
-        console.log('Erro ao cirar usuário:', err);
+        console.error('Erro ao cirar usuário:', err);
       }
     });
   }
