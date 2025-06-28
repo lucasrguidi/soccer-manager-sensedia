@@ -1,10 +1,13 @@
 import { CircleQuestionMark, Grip } from 'lucide-react';
 import Breadcrumb from './breadcrumb';
 import LogoSensedia from './logo-sensedia';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Separator } from './ui/separator';
+import { UserDropdown } from './user-dropdown';
+import { getCurrentUser } from '@/services/get-current-user';
 
-export default function TopBar() {
+export default async function TopBar() {
+  const user = await getCurrentUser();
+
   return (
     <div className="px-6 py-4 bg-background flex justify-between ">
       <div className="flex items-center gap-2">
@@ -18,13 +21,7 @@ export default function TopBar() {
           <Grip size={24} className="text-neutral-500" />
         </div>
         <Separator orientation="vertical" />
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <span className="text-neutral-500  text-sm font-medium">Nome</span>
-        </div>
+        <UserDropdown user={user} />
       </div>
     </div>
   );
