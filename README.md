@@ -121,9 +121,10 @@ npm run format
    git clone … && cd soccer-manager-sensedia
    npm install
    ```
-2. Configure seu `.env`:
+2. Configure seu `.env` baseado no arquivo `.env.example`:
    ```env
    API_URL=https://sua-api-externa.com
+   NEXT_PUBLIC_API_URL=https://sua-api-externa.com
    NEXT_PUBLIC_BASE_URL=http://localhost:3000
    ```
 3. Rode em dev:
