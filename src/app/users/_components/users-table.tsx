@@ -14,8 +14,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { Button } from '@/components/ui/button';
 import { SearchInput } from '@/components/ui/search-input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -24,15 +30,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useState } from 'react';
+
+import Paginator from './paginator';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,24 +80,6 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
   });
 
   const { pageIndex } = table.getState().pagination;
-  const pageCount = table.getPageCount();
-
-  function getPageItems() {
-    const siblings = 1;
-    const items: (number | '...')[] = [];
-    for (let i = 0; i < pageCount; i++) {
-      if (
-        i === 0 ||
-        i === pageCount - 1 ||
-        (i >= pageIndex - siblings && i <= pageIndex + siblings)
-      ) {
-        items.push(i);
-      } else if (items[items.length - 1] !== '...') {
-        items.push('...');
-      }
-    }
-    return items;
-  }
 
   return (
     <div className="w-full">
@@ -156,45 +139,16 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
             Total {table.getRowCount()}
           </span>
         </div>
-        <div className="flex items-center space-x-1">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="rounded-full"
-          >
-            Anterior
-          </Button>
 
-          {getPageItems().map((item, idx) =>
-            item === '...' ? (
-              <span key={idx} className="px-2 select-none">
-                …
-              </span>
-            ) : (
-              <Button
-                key={item}
-                size="sm"
-                variant={item === pageIndex ? 'ghost' : 'outline'}
-                onClick={() => table.setPageIndex(item)}
-                className="rounded-full"
-              >
-                {item + 1}
-              </Button>
-            ),
-          )}
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="rounded-full"
-          >
-            Próximo
-          </Button>
+        <div className="flex justify-end">
+          <Paginator
+            currentPage={table.getState().pagination.pageIndex + 1}
+            totalPages={table.getPageCount()}
+            onPageChange={(pageNumber) => table.setPageIndex(pageNumber - 1)}
+            showPreviousNext
+          />
         </div>
+
         <div className="flex items-center space-x-2">
           <span className="uppercase text-sm font-medium text-neutral-500">Ir para a página</span>
           <Select
