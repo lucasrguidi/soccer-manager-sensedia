@@ -19,10 +19,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const registerUserSchema = z.object({
-  username: z.string().min(3, 'Usuário é obrigatório'),
-  name: z.string().min(3, 'Nome é obrigatório'),
+  username: z.string().min(1, 'Usuário é obrigatório'),
+  name: z.string().min(1, 'Nome é obrigatório'),
   email: z.string().email('Email inválido'),
-  city: z.string().min(3, 'Cidade é obrigatória'),
+  city: z.string().min(1, 'Cidade é obrigatória'),
   weekDays: z
     .array(z.string())
     .refine((value) => value.some((day) => day), 'Selecione pelo menos um dia da semana'),

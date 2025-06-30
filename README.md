@@ -8,6 +8,8 @@ Este projeto é uma aplicação Next.js (App Router + Server Actions) que consom
 - Navegação via breadcrumbs e fallback para usuário não-encontrado.
 - Menu dropdown com usuário “logado” fake.
 
+---
+
 ## 🛠 Tecnologias
 
 - **Next.js 15** (App Router)

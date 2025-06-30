@@ -112,7 +112,7 @@ export function UsersTable<TData, TValue>({ columns, data }: DataTableProps<TDat
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className="group"
+                  className="group cursor-pointer"
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => router.push(`/users/${(row.original as { id: string }).id}`)}
                 >

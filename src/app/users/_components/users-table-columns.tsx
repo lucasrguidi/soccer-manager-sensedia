@@ -11,7 +11,11 @@ export const usersTableColumns: ColumnDef<UserListData>[] = [
   {
     accessorKey: 'delete',
     header: () => null,
-    cell: ({ row }) => <DeleteUserColumn row={row} />,
+    cell: ({ row }) => (
+      <div onClick={(e) => e.stopPropagation()}>
+        <DeleteUserColumn row={row} />
+      </div>
+    ),
   },
   {
     accessorKey: 'username',

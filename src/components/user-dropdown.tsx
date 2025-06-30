@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -8,15 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User } from '@/types/user';
+import { getCurrentUser } from '@/services/get-current-user';
 import { getInitials } from '@/utils/get-initials';
 import { Button } from './ui/button';
 
-interface UserDropdownProps {
-  user: User;
-}
+export async function UserDropdown() {
+  const user = await getCurrentUser();
 
-export function UserDropdown({ user }: UserDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
