@@ -8,7 +8,12 @@ import { formatWeekDays } from '@/utils/format-weekdays';
 import { generateUsername } from '@/utils/generate-username';
 
 export async function getUserListData(): Promise<UserListData[]> {
-  const usersResponse = await fetch(`${process.env.API_URL}/users`);
+  const usersResponse = await fetch(`${process.env.API_URL}/users`, {
+    next: {
+      revalidate: 60,
+      tags: ['users'],
+    },
+  });
 
   if (!usersResponse.ok) {
     throw new Error('Erro ao buscar usuários');
@@ -20,16 +25,16 @@ export async function getUserListData(): Promise<UserListData[]> {
     usersData.users.map(async (user) => {
       const [postsResponse, albumsResponse, cityResponse, weekDaysResponse] = await Promise.all([
         fetch(`${process.env.API_URL}/users/${user.id}/posts`, {
-          // cache: 'force-cache',
+          cache: 'force-cache',
         }),
         fetch(`${process.env.API_URL}/users/${user.id}/albums`, {
-          // cache: 'force-cache',
+          cache: 'force-cache',
         }),
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/random/city?seed=${user.id}`, {
-          // cache: 'force-cache',
+          cache: 'force-cache',
         }),
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/random/weekDays?seed=${user.id}`, {
-          // cache: 'force-cache',
+          cache: 'force-cache',
         }),
       ]);
 

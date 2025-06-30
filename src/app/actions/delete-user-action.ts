@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 export async function deleteUserAction(userId: string) {
   const res = await fetch(`${process.env.API_URL}/users/${userId}`, {
@@ -10,5 +10,5 @@ export async function deleteUserAction(userId: string) {
     throw new Error('Falha ao deletar usuário');
   }
 
-  revalidatePath('/users');
+  revalidateTag('users');
 }
