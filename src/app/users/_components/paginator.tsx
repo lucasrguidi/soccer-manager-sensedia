@@ -7,7 +7,7 @@ import {
   PaginationNext,
   PaginationEllipsis,
 } from '@/components/ui/pagination';
-import { cn } from '@/lib/utils'; // se precisar concatenar classes
+import { cn } from '@/lib/utils';
 
 type PaginatorProps = {
   currentPage: number;
@@ -46,7 +46,6 @@ export default function Paginator({
         {showPreviousNext && (
           <PaginationItem>
             <PaginationPrevious
-              // só dispara se puder voltar
               onClick={() => canPrev && onPageChange(currentPage - 1)}
               disabled={!canPrev}
               className={cn(!canPrev && 'pointer-events-none opacity-50 cursor-not-allowed')}
