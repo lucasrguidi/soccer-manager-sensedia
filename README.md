@@ -110,6 +110,9 @@ npm run build
 npm run start  # production
 npm run lint
 npm run format
+npm run test
+npm run test:watch
+npm run test:ci
 ```
 
 ---
@@ -132,6 +135,31 @@ npm run format
    npm run dev
    ```
 4. Acesse: `http://localhost:3000/users`
+
+---
+
+## 🧪 Testes
+
+Conforme solicitado no desafio, implementei uma suíte de testes unitários para garantir a robustez das features desenvolvidas :contentReference[oaicite:0]{index=0}. Utilizo **Jest** e **React Testing Library** para cobrir:
+
+- **Componentes**
+  - `UsersTable` (src/**tests**/users-table.test.tsx)
+  - `Breadcrumb` (src/**tests**/breadcrumb.test.tsx)
+  - `Paginator` (src/**tests**/paginator.test.tsx)
+  - `UserDropdown` (src/**tests**/user-dropdown.test.tsx)
+  - `UserSummary` (src/**tests**/user-summary.test.tsx)
+
+- **Utilitários**
+  - `formatWeekdays` (src/**tests**/utils/format-weekdays.test.tsx)
+  - `getInitials` (src/**tests**/utils/get-initials.test.tsx)
+
+### Como executar
+
+- `npm run test` — executa todos os testes
+- `npm run test:watch` — modo watch para desenvolvimento
+- `npm run test:ci` — modo CI, gera relatório de cobertura em `coverage/`
+
+Após o comando `npm run test:ci`, abra `coverage/lcov-report/index.html` no seu navegador para ver o relatório completo de cobertura.
 
 ---
 
