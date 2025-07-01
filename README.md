@@ -140,7 +140,7 @@ npm run test:ci
 
 ## 🧪 Testes
 
-Conforme solicitado no desafio, implementei uma suíte de testes unitários para garantir a robustez das features desenvolvidas :contentReference[oaicite:0]{index=0}. Utilizo **Jest** e **React Testing Library** para cobrir:
+Conforme solicitado no desafio, implementei uma suíte de testes unitários para garantir o funcionamento das features desenvolvidas, utilizando **Jest** e **React Testing Library** para cobrir:
 
 - **Componentes**
   - `UsersTable` (src/**tests**/users-table.test.tsx)
